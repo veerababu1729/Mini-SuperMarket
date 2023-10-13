@@ -1,0 +1,168 @@
+// Online C++ compiler to run C++ program
+// Online C++ compiler to 
+#include <bits/stdc++.h>
+using namespace std;
+vector<string> groceries={"rice","oil","salt"};
+vector<int> costs={235,130,20};
+class Prices
+{
+ public:                            //protected data 
+ //prices of groceries per kg/litre in Rs.//
+ //vector<string> groceries={"rice","oil","salt"};
+ //vector<int> costs={235,130,20};
+ 
+ void display()
+ {
+  int as=76;
+  int i=0;
+  cout<<"PRICES LIST"<<endl;
+  for(i=0;i<groceries.size();i++)
+  {
+   cout<<i+1<<"."<<groceries[i]<<":"<<costs[i]<<endl;
+  }
+ }
+};
+
+//inheritance concept
+
+class QtoP:public Prices
+{
+ //quantity to prices
+ public:
+ QtoP()                                    //constructor
+ {
+ display();
+ int c,reqquantity;
+ float reqprice;
+
+ cout<<"enter grocery No.&Quantity(gms)needed:"<<endl;
+ cin>>c>>reqquantity;
+
+ reqprice=(reqquantity*costs[c-1])/1000;
+ cout<<"cost of "<<reqquantity<<"gms of "<<groceries[c-1]<<" is:"<<reqprice<<"RS."<<endl;
+ }
+};
+
+class PtoQ:public Prices
+{
+ public:
+ PtoQ()
+ {
+ display();
+ int Q,reqprice;
+ float reqquantity;
+ cout<<"enter grocery No.&Price(Rs.) needed"<<endl;
+ cin>>Q>>reqprice;
+ reqquantity=(1000*reqprice)/costs[Q-1];
+ cout<<"Quantity of "<<reqprice<<"Rs. of "<<groceries[Q-1]<<" is:"<<reqquantity<<"gms"<<endl;
+ }
+};
+
+class Modification:public Prices
+{
+ public:
+ void modifyprices()             //modification of existing prices
+ {
+  int k,newprice;
+  cout<<"Enter grocery No.& it's new price:"<<endl;
+  cin>>k>>newprice;
+  costs[k-1]=newprice;
+  cout<<"---price is modified successfully---"<<endl;
+  display();
+ // Prices();. constructor should not be used
+ }
+ void addinggrocerieslist()
+ {
+  int n,p;                    //adding new list
+  string s;
+  cout<<"enter no of new groceries:"<<endl;
+  cin>>n;
+  for(int i=0;i<n;i++)
+  {
+   cout<<"enter new grociery name and its price:";
+   cin>>s>>p;                 //u can use getline(cin,s)>>p; for spaces in string
+   groceries.push_back(s);
+   costs.push_back(p);
+  }
+  display();
+ }
+ void removinggrocerieslist()
+  {
+   int l;                                //removing existing list
+   cout<<"Enter grocery no. that to be removed:";
+   cin>>l;
+   groceries.erase(groceries.begin()+(l-1));
+   costs.erase(costs.begin()+(l-1));
+   Prices();
+   display();
+  }
+  
+
+}; 
+
+
+//main function
+int main()
+{
+ int op;
+ int op1;
+ int a,fop;
+ cout<<"Enter 1 for QtoP or 2 for PtoQ or 3 for others:"<<endl;
+ cin>>op;
+ if(op==1){
+     QtoP ob1;                                    //first object
+     }
+ else if(op==2){
+     PtoQ ob2;                                  // 2nd object
+     }
+ else if(op==3){
+  cout<<"select your requirement:"<<endl;
+  cout<<"1.Modifying Existing prices\n2.Adding New Items\n3.Removing Existing items:\n4.Displaying list"<<endl;
+  cin>>op1;
+                         //3rd object
+  if(op1==1)
+  {
+   Modification ob3;
+   ob3.modifyprices();
+  }
+  else if(op1==2)
+  {
+   Modification ob3;
+   ob3.addinggrocerieslist();
+  }
+  else if(op1==3)
+  {
+   Modification ob3;
+   ob3.removinggrocerieslist();
+  }
+  else if(op1==4)
+  {
+    Modification ob3;
+    ob3.display();
+  }
+  else
+  {
+     cout<<"-----Incorrect selection-----\n---TRY AGAIN---"<<endl;
+     main();
+  }
+  
+  }
+ else
+ {
+     cout<<"-----Incorrect selection-----\n---TRY AGAIN---"<<endl;
+     main();
+ }
+  
+  
+  cout<<endl<<"Enter 1 for main menu or 0 to exit";
+  cin>>fop;
+  if(fop)
+  {
+      //Modification ob4;
+     // ob4.display();
+     main();
+  }
+  
+  
+ exit(0);
+}
